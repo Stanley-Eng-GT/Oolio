@@ -1,0 +1,9 @@
+{
+  "@@locale": "en",
+  "failedApiRequestMessage": "Failed to make an API request: {errorMessage}",
+  "noInternetErrorMessage": "No internet connection detected. Please ensure you are connected to the internet and try again.",
+  "requestFailedMessage": "Request failed with status {statusCode}",
+  "timeoutErrorMessage": "It looks like the connection is taking longer than expected. Please check your internet connection and try again. If the issue persists, try restarting the app or your device.",
+  "unexpectedErrorMessage": "An unexpected error occurred",
+  "unknownError": "Unknown error"
+}

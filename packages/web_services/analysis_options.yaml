@@ -1,0 +1,11 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+
+linter:
+  rules:
+    avoid_classes_with_only_static_members: false
+    sort_pub_dependencies: false
+    sort_child_properties_last: true
+    directives_ordering: true

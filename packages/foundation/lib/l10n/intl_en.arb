@@ -1,0 +1,14 @@
+{
+  "@@locale": "en",
+  "authenticateReason": "Please authenticate to access your services.",
+  "hoursAgo": "hrs ago",
+  "minutesAgo": "mins ago",
+  "monthsAgo": "months ago",
+  "noImageError": "No image selected. Please try again.",
+  "daysAgo": "days ago",
+  "secondsAgo": "secs ago",
+  "today": "Today",
+  "weeksAgo": "weeks ago",
+  "yearsAgo": "years ago",
+  "yesterday": "Yesterday"
+}
