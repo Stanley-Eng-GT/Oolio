@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'core/environment/dependency_injection.dart';
 import 'core/navigation/app_router.dart';
 
-void main() {
+Future<void> main() async {
+  await setupDependencies();
   runApp(const MyApp());
 }
 

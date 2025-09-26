@@ -53,6 +53,8 @@ dependencies:
   geolocator: ^13.0.1
   path_provider: ^2.1.4
   intl: ^0.19.0
+  envied_generator: ^1.0.0
+  get_it: ^7.7.0
 
   # HTTP / Web Services
   http: ^1.1.0
