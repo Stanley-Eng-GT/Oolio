@@ -1,0 +1,29 @@
+class Gaps {
+  static const double spacing0 = 0;
+  static const double spacing1 = 1;
+  static const double spacing2 = 2;
+  static const double spacing4 = 4;
+  static const double spacing6 = 6;
+  static const double spacing8 = 8;
+  static const double spacing10 = 10;
+  static const double spacing12 = 12;
+  static const double spacing14 = 14;
+  static const double spacing16 = 16;
+  static const double spacing20 = 20;
+  static const double spacing22 = 22;
+  static const double spacing24 = 24;
+  static const double spacing28 = 28;
+  static const double spacing32 = 32;
+  static const double spacing36 = 36;
+  static const double spacing40 = 40;
+  static const double spacing48 = 48;
+  static const double spacing50 = 50;
+  static const double spacing64 = 64;
+  static const double spacing72 = 72;
+  static const double spacing81 = 81;
+  static const double spacing84 = 84;
+  static const double spacing100 = 100;
+  static const double spacing130 = 130;
+  static const double spacing146 = 146;
+  static const double spacing160 = 160;
+}

@@ -24,6 +24,7 @@ mixin _$ProductModel {
   String get name => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
+  ProductImageModel get image => throw _privateConstructorUsedError;
 
   /// Serializes this ProductModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +42,14 @@ abstract class $ProductModelCopyWith<$Res> {
           ProductModel value, $Res Function(ProductModel) then) =
       _$ProductModelCopyWithImpl<$Res, ProductModel>;
   @useResult
-  $Res call({String id, String name, String category, double price});
+  $Res call(
+      {String id,
+      String name,
+      String category,
+      double price,
+      ProductImageModel image});
+
+  $ProductImageModelCopyWith<$Res> get image;
 }
 
 /// @nodoc
@@ -63,6 +71,7 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? name = null,
     Object? category = null,
     Object? price = null,
+    Object? image = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -81,7 +90,21 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as ProductImageModel,
     ) as $Val);
+  }
+
+  /// Create a copy of ProductModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductImageModelCopyWith<$Res> get image {
+    return $ProductImageModelCopyWith<$Res>(_value.image, (value) {
+      return _then(_value.copyWith(image: value) as $Val);
+    });
   }
 }
 
@@ -93,7 +116,15 @@ abstract class _$$ProductModelImplCopyWith<$Res>
       __$$ProductModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String category, double price});
+  $Res call(
+      {String id,
+      String name,
+      String category,
+      double price,
+      ProductImageModel image});
+
+  @override
+  $ProductImageModelCopyWith<$Res> get image;
 }
 
 /// @nodoc
@@ -113,6 +144,7 @@ class __$$ProductModelImplCopyWithImpl<$Res>
     Object? name = null,
     Object? category = null,
     Object? price = null,
+    Object? image = null,
   }) {
     return _then(_$ProductModelImpl(
       id: null == id
@@ -131,6 +163,10 @@ class __$$ProductModelImplCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as ProductImageModel,
     ));
   }
 }
@@ -142,7 +178,8 @@ class _$ProductModelImpl implements _ProductModel {
       {required this.id,
       required this.name,
       required this.category,
-      required this.price});
+      required this.price,
+      required this.image});
 
   factory _$ProductModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductModelImplFromJson(json);
@@ -155,10 +192,12 @@ class _$ProductModelImpl implements _ProductModel {
   final String category;
   @override
   final double price;
+  @override
+  final ProductImageModel image;
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, name: $name, category: $category, price: $price)';
+    return 'ProductModel(id: $id, name: $name, category: $category, price: $price, image: $image)';
   }
 
   @override
@@ -170,12 +209,14 @@ class _$ProductModelImpl implements _ProductModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.category, category) ||
                 other.category == category) &&
-            (identical(other.price, price) || other.price == price));
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.image, image) || other.image == image));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, category, price);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, category, price, image);
 
   /// Create a copy of ProductModel
   /// with the given fields replaced by the non-null parameter values.
@@ -198,7 +239,8 @@ abstract class _ProductModel implements ProductModel {
       {required final String id,
       required final String name,
       required final String category,
-      required final double price}) = _$ProductModelImpl;
+      required final double price,
+      required final ProductImageModel image}) = _$ProductModelImpl;
 
   factory _ProductModel.fromJson(Map<String, dynamic> json) =
       _$ProductModelImpl.fromJson;
@@ -211,6 +253,8 @@ abstract class _ProductModel implements ProductModel {
   String get category;
   @override
   double get price;
+  @override
+  ProductImageModel get image;
 
   /// Create a copy of ProductModel
   /// with the given fields replaced by the non-null parameter values.
