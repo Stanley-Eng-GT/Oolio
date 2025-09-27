@@ -19,21 +19,39 @@ class ProductCubit extends Cubit<ProductState> {
         super(const ProductState.loading());
 
   final ProductRepository _repository;
+  List<ProductModel> _allProducts = [];
 
   Future<void> loadData() async {
     try {
       final result = await _repository.getProductData();
-      final _ = switch (result) {
-        Success(value: final response) =>
-            safeEmit(ProductState.loaded(
-              productList: response,
-            )),
-        Failure(exception: final e) =>
-            safeEmit(ProductState.error(message: e.toString())),
-      };
+
+      switch (result) {
+        case Success(value: final response):
+          _allProducts = response;
+          safeEmit(ProductState.loaded(
+            productList: response,
+          ));
+          break;
+
+        case Failure(exception: final e):
+          safeEmit(ProductState.error(message: e.toString()));
+          break;
+      }
     } on Exception catch (e) {
       log(e.toString());
       safeEmit(ProductState.error(message: e.toString()));
+    }
+  }
+
+  void filterProducts(String query) {
+    if (query.isEmpty) {
+      emit(ProductState.loaded(productList: _allProducts, query: ''));
+    } else {
+      final filtered = _allProducts
+          .where((p) => p.name.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+
+      emit(ProductState.loaded(productList: filtered, query: query));
     }
   }
 }

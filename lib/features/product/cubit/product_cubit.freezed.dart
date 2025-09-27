@@ -19,21 +19,22 @@ mixin _$ProductState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<ProductModel> productList) loaded,
+    required TResult Function(List<ProductModel> productList, String query)
+        loaded,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<ProductModel> productList)? loaded,
+    TResult? Function(List<ProductModel> productList, String query)? loaded,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<ProductModel> productList)? loaded,
+    TResult Function(List<ProductModel> productList, String query)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -125,7 +126,8 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<ProductModel> productList) loaded,
+    required TResult Function(List<ProductModel> productList, String query)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -135,7 +137,7 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<ProductModel> productList)? loaded,
+    TResult? Function(List<ProductModel> productList, String query)? loaded,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -145,7 +147,7 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<ProductModel> productList)? loaded,
+    TResult Function(List<ProductModel> productList, String query)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -200,7 +202,7 @@ abstract class _$$LoadedImplCopyWith<$Res> {
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<ProductModel> productList});
+  $Res call({List<ProductModel> productList, String query});
 }
 
 /// @nodoc
@@ -217,12 +219,17 @@ class __$$LoadedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? productList = null,
+    Object? query = null,
   }) {
     return _then(_$LoadedImpl(
       productList: null == productList
           ? _value._productList
           : productList // ignore: cast_nullable_to_non_nullable
               as List<ProductModel>,
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -230,7 +237,8 @@ class __$$LoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl({required final List<ProductModel> productList})
+  const _$LoadedImpl(
+      {required final List<ProductModel> productList, this.query = ''})
       : _productList = productList;
 
   final List<ProductModel> _productList;
@@ -242,8 +250,12 @@ class _$LoadedImpl implements _Loaded {
   }
 
   @override
+  @JsonKey()
+  final String query;
+
+  @override
   String toString() {
-    return 'ProductState.loaded(productList: $productList)';
+    return 'ProductState.loaded(productList: $productList, query: $query)';
   }
 
   @override
@@ -252,12 +264,13 @@ class _$LoadedImpl implements _Loaded {
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
             const DeepCollectionEquality()
-                .equals(other._productList, _productList));
+                .equals(other._productList, _productList) &&
+            (identical(other.query, query) || other.query == query));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_productList));
+      runtimeType, const DeepCollectionEquality().hash(_productList), query);
 
   /// Create a copy of ProductState
   /// with the given fields replaced by the non-null parameter values.
@@ -271,32 +284,33 @@ class _$LoadedImpl implements _Loaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<ProductModel> productList) loaded,
+    required TResult Function(List<ProductModel> productList, String query)
+        loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(productList);
+    return loaded(productList, query);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<ProductModel> productList)? loaded,
+    TResult? Function(List<ProductModel> productList, String query)? loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(productList);
+    return loaded?.call(productList, query);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<ProductModel> productList)? loaded,
+    TResult Function(List<ProductModel> productList, String query)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(productList);
+      return loaded(productList, query);
     }
     return orElse();
   }
@@ -337,10 +351,12 @@ class _$LoadedImpl implements _Loaded {
 }
 
 abstract class _Loaded implements ProductState {
-  const factory _Loaded({required final List<ProductModel> productList}) =
-      _$LoadedImpl;
+  const factory _Loaded(
+      {required final List<ProductModel> productList,
+      final String query}) = _$LoadedImpl;
 
   List<ProductModel> get productList;
+  String get query;
 
   /// Create a copy of ProductState
   /// with the given fields replaced by the non-null parameter values.
@@ -418,7 +434,8 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<ProductModel> productList) loaded,
+    required TResult Function(List<ProductModel> productList, String query)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -428,7 +445,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<ProductModel> productList)? loaded,
+    TResult? Function(List<ProductModel> productList, String query)? loaded,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -438,7 +455,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<ProductModel> productList)? loaded,
+    TResult Function(List<ProductModel> productList, String query)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

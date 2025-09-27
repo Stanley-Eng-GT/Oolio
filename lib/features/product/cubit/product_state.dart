@@ -4,6 +4,6 @@ part of 'product_cubit.dart';
 class ProductState with _$ProductState {
   const factory ProductState.loading() = _Loading;
   const factory ProductState.loaded(
-      {required List<ProductModel> productList}) = _Loaded;
+      {required List<ProductModel> productList, @Default('') String query}) = _Loaded;
   const factory ProductState.error({required String message}) = _Error;
 }
