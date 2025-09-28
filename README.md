@@ -2,15 +2,32 @@
 
 Oolio POS – Offline-First Point of Sale for Mobile & Web
 
+## Features
+
+- **Browse Desserts**: Scroll through a list of available desserts with images.
+- **Search**: Quickly find products using the built-in search bar.
+- **Cart Management**:
+    - Add items to the cart.
+    - Increase (`+`) or decrease (`-`) item quantities.
+    - Remove items when quantity reaches zero.
+- **Cart Screen**:
+    - View all selected products.
+    - See per-item total and grand total.
+    - Submit an order directly.
+
+## Tech Stack
+
+- **Flutter** (UI framework)
+- **flutter_bloc** (state management)
+- **go_router** (navigation)
+- **Dart** (programming language)
+
+## Screenshots (optional)
+
+_Add screenshots or GIFs here once available._
+
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/Stanley-Eng-GT/Oolio.git
