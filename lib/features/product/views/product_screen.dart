@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:oolio/features/product/cubit/product_cubit.dart';
 import 'package:oolio/utils/extensions/double_extensions.dart';
 import 'package:oolio/widgets/scaffolds/landing_scaffold.dart';
 import 'package:ui_widgets/theme/gaps.dart';
 import 'package:ui_widgets/widgets/progress/loading_indicator/loading_indicator.dart';
 
+import '../../../core/navigation/ordering_navigation.dart';
 import '../../../widgets/error/error_view.dart';
+import '../../cart/cubit/cart_cubit.dart';
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen({super.key});
@@ -15,8 +18,15 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController _controller = TextEditingController(text: '');
-    return BlocProvider<ProductCubit>(
-      create: (context) => ProductCubit()..loadData(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ProductCubit>(
+          create: (context) => ProductCubit()..loadData(),
+        ),
+        BlocProvider<CartCubit>(
+          create: (context) => CartCubit(),
+        ),
+      ],
       child: BlocConsumer<ProductCubit, ProductState>(
         listener: (context, state) {
           state.maybeMap(
@@ -49,17 +59,18 @@ class ProductScreen extends StatelessWidget {
                         controller: _controller,
                         decoration: InputDecoration(
                           hintText: 'Search...',
-
                           prefixIcon: const Icon(Icons.search),
                           suffixIcon: _controller.text.isEmpty
                               ? null
                               : IconButton(
-                            icon: const Icon(Icons.cancel_outlined),
-                            onPressed: () {
-                              _controller.clear();
-                              context.read<ProductCubit>().filterProducts(''); // notify Cubit
-                            },
-                          ),
+                                  icon: const Icon(Icons.cancel_outlined),
+                                  onPressed: () {
+                                    _controller.clear();
+                                    context
+                                        .read<ProductCubit>()
+                                        .filterProducts(''); // notify Cubit
+                                  },
+                                ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -75,67 +86,77 @@ class ProductScreen extends StatelessWidget {
                         itemCount: response.length,
                         itemBuilder: (context, index) {
                           final item = response[index];
-                          return Card(
-                            elevation: 4,
-                            margin: const EdgeInsets.symmetric(vertical: 8),
-                            shape: RoundedRectangleBorder(
+                          return InkWell(
                               borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(16),
-                                  ),
-                                  child: Builder(
-                                    builder: (context) {
-                                      final width =
-                                          MediaQuery.of(context).size.width;
-
-                                      // Pick correct image based on screen width
-                                      final imageUrl = width < 600
-                                          ? item.image.mobile
-                                          : width < 1024
-                                          ? item.image.tablet
-                                          : item.image.desktop;
-
-                                      return Image.network(
-                                        imageUrl,
-                                        fit: BoxFit.cover,
-                                        width: double.infinity,
-                                        height: 180,
-                                        errorBuilder:
-                                            (context, error, stackTrace) =>
-                                        const Icon(Icons.broken_image,
-                                            size: 80),
-                                      );
-                                    },
-                                  ),
+                              // match card corners
+                              onTap: () {
+                                context.read<CartCubit>().addProduct(item);
+                                GoRouter.of(context).push(
+                                    OrderingNavigation.cartPath,
+                                    extra: context.read<CartCubit>());
+                              },
+                              child: Card(
+                                elevation: 4,
+                                margin: const EdgeInsets.symmetric(vertical: 8),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        item.name,
-                                        style: const TextStyle(fontSize: 16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: const BorderRadius.vertical(
+                                        top: Radius.circular(16),
                                       ),
-                                      Text(
-                                        item.price.toCurrency(),
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                      child: Builder(
+                                        builder: (context) {
+                                          final width =
+                                              MediaQuery.of(context).size.width;
+
+                                          // Pick correct image based on screen width
+                                          final imageUrl = width < 600
+                                              ? item.image.mobile
+                                              : width < 1024
+                                                  ? item.image.tablet
+                                                  : item.image.desktop;
+
+                                          return Image.network(
+                                            imageUrl,
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                            height: 180,
+                                            errorBuilder: (context, error,
+                                                    stackTrace) =>
+                                                const Icon(Icons.broken_image,
+                                                    size: 80),
+                                          );
+                                        },
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            item.name,
+                                            style:
+                                                const TextStyle(fontSize: 16),
+                                          ),
+                                          Text(
+                                            item.price.toCurrency(),
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          );
+                              ));
                         },
                       ),
                     ),

@@ -18,8 +18,13 @@ class $AssetsImagesGen {
   AssetGenImage get errorViewImage =>
       const AssetGenImage('assets/images/error_view_image.png');
 
+  /// File path: assets/images/welcome_screen_background_image.jpg
+  AssetGenImage get welcomeScreenBackgroundImage =>
+      const AssetGenImage('assets/images/welcome_screen_background_image.jpg');
+
   /// List of all assets
-  List<AssetGenImage> get values => [errorViewImage];
+  List<AssetGenImage> get values =>
+      [errorViewImage, welcomeScreenBackgroundImage];
 }
 
 class Assets {

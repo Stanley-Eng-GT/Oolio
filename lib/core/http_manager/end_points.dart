@@ -1,4 +1,4 @@
 class EndPoints {
   static const String product = 'product';
-  static const String refresh = 'order';
+  static const String order = 'order';
 }
